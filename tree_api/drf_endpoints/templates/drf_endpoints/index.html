@@ -1,0 +1,46 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParaPhrase Testing</title>
+
+</head>
+
+<body>
+    <div id="forminput">
+    <form action="http://127.0.0.1:8000/api/paraphrase/" id="tree_form">
+        <label for="tree">Parsed tree to paraphrase:</label><br>
+        <textarea id="tree" name="tree" placeholder="Tree" style="height: 200px; width: 500px;" required></textarea><br>
+        <label for="Limit">Limit for the number of permutations (default is 20)</label><br>
+        <input type="number" id="limit"  name="limit" placeholder="20"/> <br>
+        <input type="submit" value="Send Me!" />
+    </form>
+    </div>
+
+    <div><span id="result"></span></div>
+    <script>
+        const form = document.getElementById("tree_form");
+        form.addEventListener("submit", submitForm);
+
+        function submitForm(event) {
+            event.preventDefault();
+            let query = new URLSearchParams(new FormData(form))
+            query.forEach((value, key) => {
+            if (value == '') {
+                query.delete(key);
+            }
+            });
+            const url = form.action + "?" + query;
+            fetch(url)
+                .then(response => response.json())
+                .then(response => {
+                    document.getElementById("result").innerHTML = "<pre>"+JSON.stringify(response,undefined, 2) +"</pre>"
+                    
+                });
+        }
+    </script>
+</body>
+
+</html>

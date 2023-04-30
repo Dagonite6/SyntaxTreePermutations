@@ -6,7 +6,7 @@ class Permutator:
     maxResults = 0
     def __init__(self, source, limit) -> None:
         self.tree = ParentedTree.fromstring(source)
-        self.maxResults = limit
+        self.maxResults = int(limit)
 
     #Collect array of arrays with all children NPs and their parent just in case for future
     def traverse(self, root):
@@ -31,7 +31,7 @@ class Permutator:
 
     #Recursive backtracking algorithm to find permutations in a group of NPs 
     def permutateNPs(self, group, start, end, subgroup=None):
-        if len(self.results) >= self.limit:
+        if len(self.results) == self.maxResults:
             return
         if start == end:
             if subgroup:
@@ -50,7 +50,7 @@ class Permutator:
                     self.swap_nodes(first, second)
                 first, second = second, first
                 
-    #Return a set of all possible permutations of separate permutations
+    #Return a set of possible permutations of separate permutations
     def permutate_tree(self):
         self.traverse(self.tree)
         for i,group in enumerate(self.nps):
@@ -58,5 +58,6 @@ class Permutator:
                 group2 = self.nps[j]
                 self.permutateNPs(group, 0, len(group), subgroup=group2)
     
+    #Put results in a JSON frienly list of dictonaries
     def seralize_permutations(self):
         return([{"tree": x} for x in self.results])
