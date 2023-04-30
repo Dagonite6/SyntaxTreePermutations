@@ -18,11 +18,11 @@
 
 ```    
 
-    pip install virtualenv
+pip install virtualenv
 
-    virtualenv venv
+virtualenv venv
 
-    source venv/bin/activate
+source venv/bin/activate
 
 ```    
 
@@ -37,14 +37,14 @@
 
    API endpoint, returns all possible permutations of NPs in the tree (up to a maximum specified with the 'limit' url param):
 ```
-   path: 127.0.0.1:8000/api/paraphrase/
+path: 127.0.0.1:8000/api/paraphrase/
 
-   HTTP method: GET
-   query parameters:
+HTTP method: GET
+query parameters:
 
-   tree: str (required)
+tree: str (required)
 
-   limit: int (optional, default: 20)
+limit: int (optional, default: 20)
 
 ```
 
